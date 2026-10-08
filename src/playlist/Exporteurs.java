@@ -7,6 +7,8 @@ public class Exporteurs {
         switch (type.toLowerCase()) {
             case "m3u":
                 return new ExportM3U();
+            case "xspf":
+                return new ExportXSPF();
             default:
                 return null;
         }
