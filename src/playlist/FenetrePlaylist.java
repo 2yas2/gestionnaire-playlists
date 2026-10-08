@@ -24,6 +24,7 @@ public class FenetrePlaylist extends JFrame {
     private JList<Musique> liste = new JList<>(modele);
     private JComboBox<String> types = new JComboBox<>(new String[] {"m3u", "xspf", "jspf"});
     private JLabel etat = new JLabel("aucune musique");
+    private Lecteur lecteur;
 
     public FenetrePlaylist() {
         super("Gestionnaire de playlists");
@@ -38,8 +39,15 @@ public class FenetrePlaylist extends JFrame {
         haut.add(types);
         haut.add(exporter);
 
+        JPanel boutonsLecture = new JPanel(new FlowLayout());
+        JButton lecture = new JButton("Lecture");
+        JButton stop = new JButton("Stop");
+        boutonsLecture.add(lecture);
+        boutonsLecture.add(stop);
+
         JPanel bas = new JPanel(new GridLayout(2, 1));
         bas.add(etat);
+        bas.add(boutonsLecture);
 
         add(haut, BorderLayout.NORTH);
         add(new JScrollPane(liste), BorderLayout.CENTER);
@@ -48,6 +56,8 @@ public class FenetrePlaylist extends JFrame {
         importer.addActionListener(e -> importer());
         courant.addActionListener(e -> ajouterRepertoireCourant());
         exporter.addActionListener(e -> exporter());
+        lecture.addActionListener(e -> lire());
+        stop.addActionListener(e -> arreter());
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(600, 400);
@@ -83,6 +93,32 @@ public class FenetrePlaylist extends JFrame {
             ajouter(m);
         }
         etat.setText(trouvees.size() + " musique(s) trouvee(s) dans " + dossier.getName());
+    }
+
+    private void lire() {
+        Musique m = liste.getSelectedValue();
+        if (m == null) {
+            etat.setText("choisir une musique dans la liste");
+            return;
+        }
+        try {
+            if (lecteur == null) {
+                lecteur = new Lecteur();
+            }
+            lecteur.lire(m.getFichier());
+            etat.setText("lecture : " + m);
+        } catch (NoClassDefFoundError e) {
+            etat.setText("jlayer introuvable, voir le README");
+        } catch (Exception e) {
+            etat.setText("erreur de lecture : " + e.getMessage());
+        }
+    }
+
+    private void arreter() {
+        if (lecteur != null) {
+            lecteur.stop();
+            etat.setText("lecture arretee");
+        }
     }
 
     private void exporter() {
