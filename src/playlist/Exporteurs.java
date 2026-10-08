@@ -9,6 +9,8 @@ public class Exporteurs {
                 return new ExportM3U();
             case "xspf":
                 return new ExportXSPF();
+            case "jspf":
+                return new ExportJSPF();
             default:
                 return null;
         }
