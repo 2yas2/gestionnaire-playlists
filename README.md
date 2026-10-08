@@ -2,7 +2,7 @@
 
 Application Java pour gérer des playlists de musiques MP3 : importer des musiques, les sélectionner et exporter la playlist en M3U, XSPF ou JSPF. Elle s'utilise en ligne de commande ou avec une petite interface graphique Swing. La lecture se limite à lecture et stop.
 
-Projet réalisé en [À COMPLÉTER : L1 ou L2] en [À COMPLÉTER : année].
+Projet individuel réalisé en L2 (semestre 3, 2025).
 
 ## Technos
 
@@ -50,4 +50,4 @@ Ligne de commande :
 
 ## Ce que j'ai fait
 
-[À COMPLÉTER : ma part du projet, et si j'ai travaillé seul ou avec d'autres]
+Projet individuel, réalisé seul.
